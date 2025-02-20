@@ -1,3 +1,4 @@
+import 'package:amplitude_flutter/amplitude.dart';
 import 'package:experiment_sdk_flutter/experiment_client.dart';
 import 'package:experiment_sdk_flutter/integrations/experiment_analytics.dart';
 import 'package:experiment_sdk_flutter/types/experiment_config.dart';
@@ -20,9 +21,9 @@ class Experiment {
   }
 
   /// Initialize ExperimentClient with Amplitude instance to handle exposure events
-  static ExperimentClient initializeWithAmplitude(
+  static ExperimentClient initializeWithAmplitude(Amplitude amplitude,
       {required String apiKey, ExperimentConfig? config}) {
-    final trackExposureProvider = AnalyticsExposureTrackingProvider();
+    final trackExposureProvider = AnalyticsExposureTrackingProvider(amplitude);
 
     final newConfig = (config ?? ExperimentConfig())
         .copyWith(exposureTrackingProvider: trackExposureProvider);
