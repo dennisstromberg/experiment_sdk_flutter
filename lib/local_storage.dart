@@ -14,11 +14,11 @@ class LocalStorage {
   LocalStorage({required String apiKey}) : namespace = _getNamespace(apiKey) {}
 
   void put(String key, ExperimentVariant value) {
-    map[key] = value;
+    map["$namespace$key"] = value;
   }
 
   ExperimentVariant? get(String key) {
-    final variant = map[key];
+    final variant = map["$namespace$key"];
 
     return variant;
   }
@@ -37,10 +37,10 @@ class LocalStorage {
     final keys = prefs.getKeys();
     Map<String, ExperimentVariant> newMap = {};
 
-    for (String key in keys) {
-      dynamic value = prefs.get(key);
+    for (String key in keys.where((key) => key.startsWith(namespace))) {
+      dynamic value = prefs.get("$namespace$key");
 
-      newMap[key] = ExperimentVariant.fromMap(jsonDecode(value));
+      newMap["$namespace$key"] = ExperimentVariant.fromMap(jsonDecode(value));
     }
 
     map = newMap;
@@ -50,7 +50,7 @@ class LocalStorage {
     final prefs = await SharedPreferences.getInstance();
 
     map.forEach((key, value) {
-      prefs.setString(key, value.toJsonAsString());
+      prefs.setString("$namespace$key", value.toJsonAsString());
     });
   }
 
