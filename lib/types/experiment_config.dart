@@ -4,6 +4,7 @@ import 'package:experiment_sdk_flutter/types/experiment_variant.dart';
 
 class ExperimentConfig {
   final bool? debug;
+  final String? serverUri;
   final String? instanceName;
   final ExperimentVariant? fallbackVariant;
   final ExperimentVariantSource? source;
@@ -16,6 +17,7 @@ class ExperimentConfig {
 
   ExperimentConfig(
       {this.debug = false,
+      this.serverUri,
       this.instanceName = '\$default_instance',
       this.fallbackVariant,
       this.source,
