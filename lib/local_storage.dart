@@ -11,9 +11,7 @@ class LocalStorage {
   @protected
   Map<String, ExperimentVariant> map = {};
 
-  LocalStorage({required String apiKey}) : namespace = _getNamespace(apiKey) {
-    SharedPreferences.setPrefix(namespace);
-  }
+  LocalStorage({required String apiKey}) : namespace = _getNamespace(apiKey) {}
 
   void put(String key, ExperimentVariant value) {
     map[key] = value;
